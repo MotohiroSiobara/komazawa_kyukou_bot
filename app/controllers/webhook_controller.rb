@@ -11,7 +11,7 @@ class WebhookController < ApplicationController
       render :nothing => true, status: 470
     end
     logger.info(response)
-    logger.info(params[:events])
+    logger.info(params[:events]["message"]["text"])
     logger.info(params[:events][:message][:text])
     result = params[:result][0]
     logger.info({from_line: result})
