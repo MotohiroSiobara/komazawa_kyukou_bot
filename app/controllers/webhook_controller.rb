@@ -10,16 +10,6 @@ class WebhookController < ApplicationController
     unless is_validate_signature
       render :nothing => true, status: 470
     end
-    message = {
-      type: 'text',
-      text: 'hello'
-    }
-    client = Line::Bot::Client.new { |config|
-        config.channel_secret = CHANNEL_SECRET
-        config.channel_token = ENV["LINE_CHANNEL_ACCESS_TOKEN"]
-    }
-    response = client.push_message({"userId"=>"U5f76a050a6809546f1dcae891122b9bd", "type"=>"user"}, message)
-    logger.info response
     logger.info(params)
     result = params[:result][0]
     logger.info({from_line: result})
