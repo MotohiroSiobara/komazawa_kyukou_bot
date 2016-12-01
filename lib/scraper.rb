@@ -1,9 +1,5 @@
 require 'line/bot'
 
-header = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer #{ENV["LINE_CHANNEL_ACCESS_TOKEN"]}"
-    }
 message = {
   type: 'text',
   text: 'hello'
