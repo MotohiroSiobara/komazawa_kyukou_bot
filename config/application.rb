@@ -5,12 +5,13 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-# to auto load lib/ directory
-config.autoload_paths += %W(#{config.root}/lib)
+
 
 module KyukouBot
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
+    config.enable_dependency_loading = true
+    config.autoload_paths << Rails.root.join('lib')
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
   end
