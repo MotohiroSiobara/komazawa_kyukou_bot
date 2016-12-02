@@ -11,13 +11,13 @@ class WebhookController < ApplicationController
       render :nothing => true, status: 470
     end
     params = JSON.parse(request.body.read)
-    logger.info(params)
-    logger.info(params["result"])
+    # logger.info(params)
+    # logger.info(params["result"])
     result = params["result"]
-    logger.info({from_line: result})
-    logger.info(params["events"][0]["message"]["text"])
+    # logger.info({from_line: result})
+    # logger.info(params["events"][0]["message"]["text"])
     text_message = params["events"][0]["message"]["text"]
-    logger.info(params["events"][0]["source"]["userId"])
+    # logger.info(params["events"][0]["source"]["userId"])
     from_mid = params["events"][0]["source"]["userId"]
 
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
