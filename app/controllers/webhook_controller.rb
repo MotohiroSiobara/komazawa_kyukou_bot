@@ -11,6 +11,7 @@ class WebhookController < ApplicationController
       render :nothing => true, status: 470
     end
     params = JSON.parse(request.body.read)
+    logger.info(params)
     logger.info(params["result"])
     result = params["result"]
     logger.info({from_line: result})
