@@ -1,12 +1,29 @@
-require 'line/bot'
+require 'bundler/setup'3
+require 'sinatra'
+require 'json'
+require 'httpclient'
 
-message = {
-  type: 'text',
-  text: 'hello'
-}
-client = Line::Bot::Client.new { |config|
-    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-    config.channel_token = ENV["LINE_CHANNEL_ACCESS_TOKEN"]
-}
-response = client.push_message("U5f76a050a6809546f1dcae891122b9bd", message)
-p response
+post '/linebot/callback' do
+  params = JSON.parse(request.body.read)
+
+  params['result'].each do |msg|
+    request_content = {
+      to: [msg['content']['from']],
+      toChannel: 1383378250, # Fixed  value
+      eventType: "138311608800106203", # Fixed value
+      content: msg['content']
+    }
+
+    http_client = HTTPClient.new
+    endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+    content_json = request_content.to_json
+    http_client.post_content(endpoint_uri, content_json,
+        'Content-Type' => 'application/json; charset=UTF-8',
+        'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
+        'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
+        'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"]
+      )
+  end
+
+  "OK"
+end
