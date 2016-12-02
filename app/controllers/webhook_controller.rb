@@ -17,7 +17,8 @@ class WebhookController < ApplicationController
     logger.info({from_line: result})
     logger.info(params["events"][0]["message"]["text"])
     text_message = params["events"][0]["message"]["text"]
-    from_mid =result['content']['from']
+    logger.info(params["events"][0]["source"]["userId"])
+    from_mid = params["events"][0]["source"]["userId"]
 
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], text_message)
