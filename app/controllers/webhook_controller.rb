@@ -5,6 +5,7 @@ class WebhookController < ApplicationController
   CHANNEL_SECRET = ENV['LINE_CHANNEL_SECRET']
   CHANNEL_MID = ENV['LINE_CHANNEL_MID']
   OUTBOUND_PROXY = ENV['LINE_OUTBOUND_PROXY']
+  ACCESS_TOKEN = ENV['LINE_CHANNEL_TOKEN']
 
   def callback
     unless is_validate_signature
@@ -19,6 +20,16 @@ class WebhookController < ApplicationController
     text_message = params["events"][0]["message"]["text"]
     # logger.info(params["events"][0]["source"]["userId"])
     from_mid = params["events"][0]["source"]["userId"]
+    message = {
+      type: 'text',
+      text: 'hello'
+    }
+    client = Line::Bot::Client.new { |config|
+        config.channel_secret = CHANNEL_SECRET
+        config.channel_token = ACCESS_TOKEN
+    }
+    response = client.reply_message("e3432f1bb50340f99f1f893f818797ab", message)
+    logger.info(response)
 
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], text_message)
@@ -28,7 +39,7 @@ class WebhookController < ApplicationController
     else
       logger.info({fail: res})
     end
-    render :nothing => true, status: :ok
+    render :nothing => true, status: :ok, and return
   end
 
   private
