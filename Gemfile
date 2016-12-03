@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.5'
 gem "faraday"
 gem "faraday_middleware"
 gem 'line-bot-api'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
