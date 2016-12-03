@@ -27,6 +27,7 @@ class WebhookController < ApplicationController
       type: 'text',
       text: text_message
     }
+    logger.info(reply_token)
     client = Line::Bot::Client.new { |config|
         config.channel_secret = CHANNEL_SECRET
         config.channel_token = ACCESS_TOKEN
