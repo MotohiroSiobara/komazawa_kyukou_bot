@@ -24,7 +24,7 @@ class WebhookController < ApplicationController
     from_mid = params["events"][0]["source"]["userId"]
     message = {
       type: 'text',
-      text: 'hello'
+      text: text_message
     }
     client = Line::Bot::Client.new { |config|
         config.channel_secret = CHANNEL_SECRET
