@@ -22,6 +22,7 @@ class WebhookController < ApplicationController
     text_message = params["events"][0]["message"]["text"]
     # logger.info(params["events"][0]["source"]["userId"])
     from_mid = params["events"][0]["source"]["userId"]
+    reply_token = params["events"][0]["replyToken"]
     message = {
       type: 'text',
       text: text_message
@@ -30,18 +31,18 @@ class WebhookController < ApplicationController
         config.channel_secret = CHANNEL_SECRET
         config.channel_token = ACCESS_TOKEN
     }
-    response = client.reply_message("e3432f1bb50340f99f1f893f818797ab", message)
+    response = client.reply_message(reply_token, message)
     logger.info(response)
 
-    client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
-    res = client.send([from_mid], text_message)
+    # client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
+    # res = client.send([from_mid], text_message)
 
-    if res.status == 200
-      logger.info({success: res})
-    else
-      logger.info({fail: res})
-    end
-    render :nothing => true, status: :ok
+    # if res.status == 200
+    #   logger.info({success: res})
+    # else
+    #   logger.info({fail: res})
+    # end
+    # render :nothing => true, status: :ok
   end
 
   private
