@@ -1,8 +1,4 @@
 require 'line/bot'
-require 'capybara/poltergeist'
-require 'nokogiri'
-require 'phantomjs'
-require 'capybara'
 
 class NoLectures
   MY_LINE_ID = ENV['MY_LINE_ID']
@@ -30,8 +26,8 @@ class NoLectures
     text: text
   }
   client = Line::Bot::Client.new { |config|
-      config.channel_secret = "d9ac97da586041af82ef133a47504f05"
-      config.channel_token = "l6vsvu2NvtKO2bdTemTeYAyR5X2XzO10aHnmRymSpNYQ4ndq45yt135NQSX859IR9kw703d2fA0f4JPAJVmFBl+p0s/1LxQHq/iUTrsIwCA3/fjap+5P5+X8YlNxrfcEb6ND90Xetp2BvCAgcRfWtwdB04t89/1O/w1cDnyilFU="
+      config.channel_secret = CHANNEL_SECRET
+      config.channel_token = ACCESS_TOKEN
   }
   response = client.push_message(MY_LINE_ID, message)
   puts response
