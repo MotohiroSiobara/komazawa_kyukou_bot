@@ -11,6 +11,7 @@ class NoLectures
   end
   session = Capybara::Session.new(:poltergeist)
   session.visit "https://www.komazawa-u.ac.jp/~kyoumu/lesson/kyukou/KKE0601.html"
+  sleep(1)
   session.find("body > table:nth-child(2) > tbody > tr > td > div > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td > center > a > b > font").click
   # puts session.charset
   page = Nokogiri::HTML.parse(session.html, nil, 'utf-8')
