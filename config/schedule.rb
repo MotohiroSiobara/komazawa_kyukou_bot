@@ -26,5 +26,5 @@ set :environment, :production
 
 # 毎日 am4:30のスケジューリング
 every 1.day, at: '4:30 am' do
-  rake no_lectures_notice:run
+  rake "no_lectures_notice:run"
 end
