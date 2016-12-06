@@ -1,6 +1,7 @@
 require 'line/bot'
 require 'capybara/poltergeist'
 require 'nokogiri'
+require 'phantomjs'
 
 class NoLectures
   MY_LINE_ID = ENV['MY_LINE_ID']
