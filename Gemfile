@@ -31,6 +31,7 @@ gem 'nokogiri'
 gem 'capybara'
 gem 'poltergeist'
 gem 'whenever', require: false
+gem 'phantomjs', :require => 'phantomjs/poltergeist'
 
 
 # Use Redis adapter to run Action Cable in production
