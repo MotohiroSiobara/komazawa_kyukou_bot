@@ -5,7 +5,6 @@ class WebhookController < ApplicationController
 
   CHANNEL_ID = ENV['LINE_CHANNEL_ID']
   CHANNEL_SECRET = ENV['LINE_CHANNEL_SECRET']
-  CHANNEL_MID = ENV['LINE_CHANNEL_MID']
   OUTBOUND_PROXY = ENV['LINE_OUTBOUND_PROXY']
   ACCESS_TOKEN = ENV['LINE_CHANNEL_TOKEN']
 
@@ -14,19 +13,15 @@ class WebhookController < ApplicationController
       render :nothing => true, status: 470
     end
     params = JSON.parse(request.body.read)
-    # logger.info(params)
-    # logger.info(params["result"])
     result = params["result"]
-    # logger.info({from_line: result})
-    # logger.info(params["events"][0]["message"]["text"])
     text_message = params["events"][0]["message"]["text"]
-    # logger.info(params["events"][0]["source"]["userId"])
-    from_mid = params["events"][0]["source"]["userId"]
+    user_id = params["events"][0]["source"]["userId"]
     reply_token = params["events"][0]["replyToken"]
     message = {
       type: 'text',
       text: text_message
     }
+    logger.info(user_id)
     logger.info(reply_token)
     client = Line::Bot::Client.new { |config|
         config.channel_secret = CHANNEL_SECRET
@@ -34,16 +29,6 @@ class WebhookController < ApplicationController
     }
     response = client.reply_message(reply_token, message)
     logger.info(response)
-
-    # client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
-    # res = client.send([from_mid], text_message)
-
-    # if res.status == 200
-    #   logger.info({success: res})
-    # else
-    #   logger.info({fail: res})
-    # end
-    # render :nothing => true, status: :ok
   end
 
   private
