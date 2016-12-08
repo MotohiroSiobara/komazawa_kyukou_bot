@@ -33,6 +33,15 @@ gem 'poltergeist'
 gem 'whenever', require: false
 gem 'phantomjs', :require => 'phantomjs/poltergeist'
 
+group :development, :test do
+  gem 'pry-rails'  # rails console(もしくは、rails c)でirbの代わりにpryを使われる
+  gem 'pry-doc'    # methodを表示
+  gem 'pry-byebug' # デバッグを実施(Ruby 2.0以降で動作する)
+  gem 'pry-stack_explorer' # スタックをたどれる
+end
+
+gem 'settingslogic'
+
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
