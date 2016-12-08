@@ -21,10 +21,6 @@ class NoLectures
   doc = Nokogiri::HTML.parse(html, nil, charset)
   text = doc.css("table").text.to_s
 
-  p CHANNEL_SECRET
-  p ACCESS_TOKEN
-  p MY_LINE_ID
-
   message = {
     type: 'text',
     text: text
