@@ -32,6 +32,7 @@ gem 'capybara'
 gem 'poltergeist'
 gem 'whenever', require: false
 gem 'phantomjs', :require => 'phantomjs/poltergeist'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'pry-rails'  # rails console(もしくは、rails c)でirbの代わりにpryを使われる
