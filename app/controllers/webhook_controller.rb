@@ -10,14 +10,13 @@ class WebhookController < ApplicationController
       render :nothing => true, status: 470
     end
     params = JSON.parse(request.body.read)
-    result = params["result"]
-    text_message = params["events"][0]["message"]["text"]
-    user_id = params["events"][0]["source"]["userId"]
-    reply_token = params["events"][0]["replyToken"]
-    LineClient.new.register_friend(user_id, reply_token)
-    # logger.info(user_id)
-    # logger.info(reply_token)
-    # logger.info(response)
+    event_type = params["events"][0]["type"]
+    if event_type == "follow"
+      user_id = params["events"][0]["source"]["userId"]
+      reply_token = params["events"][0]["replyToken"]
+      logger.info(user_id)
+      LineClient.new.register_friend(user_id, reply_token)
+    end
   end
 
   private
