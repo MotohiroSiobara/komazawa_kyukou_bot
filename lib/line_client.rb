@@ -22,4 +22,17 @@ class LineClient
       response = @client.push_message(user.user_id, message)
     end
   end
+
+  def register_friend(user_id, reply_token)
+    unless User.exists?(user_id: user_id)
+      User.create(user_id: user_id)
+      message = {
+        type: 'text',
+        text: "登録が完了しました。毎朝9時に休講情報を配信します。"
+      }
+      response = @client.reply_message(reply_token, message)
+    else
+      logger.info("登録済み")
+    end
+  end
 end

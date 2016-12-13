@@ -17,19 +17,7 @@ class WebhookController < ApplicationController
     text_message = params["events"][0]["message"]["text"]
     user_id = params["events"][0]["source"]["userId"]
     reply_token = params["events"][0]["replyToken"]
-    User.create(user_id: user_id) unless User.exists?(user_id: user_id)
-    # message = {
-    #   type: 'text',
-    #   text: text_message
-    # }
-    # logger.info(user_id)
-    # logger.info(reply_token)
-    # client = Line::Bot::Client.new { |config|
-    #     config.channel_secret = CHANNEL_SECRET
-    #     config.channel_token = ACCESS_TOKEN
-    # }
-    # response = client.reply_message(reply_token, message)
-    # logger.info(response)
+    LineClient.new.register_friend(user_id, reply_token)
   end
 
   private
