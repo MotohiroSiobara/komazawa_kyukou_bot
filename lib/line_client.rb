@@ -45,7 +45,7 @@ class LineClient
       display_name = contact['displayName']
       picture = contact['pictureUrl']
       status = contact['statusMessage']
-      User.create(user_id: user_id, display_name: isplay_name, picture_url: picture, status_message: status)
+      User.create(user_id: user_id, display_name: display_name, picture_url: picture, status_message: status)
     else
       p "#{response.code} #{response.body}"
     end
