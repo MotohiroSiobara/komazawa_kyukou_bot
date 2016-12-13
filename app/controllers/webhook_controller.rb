@@ -3,11 +3,6 @@ require 'line/bot'
 class WebhookController < ApplicationController
    protect_from_forgery with: :null_session # CSRF対策無効化
 
-  CHANNEL_ID = ENV['LINE_CHANNEL_ID']
-  CHANNEL_SECRET = ENV['LINE_CHANNEL_SECRET']
-  OUTBOUND_PROXY = ENV['LINE_OUTBOUND_PROXY']
-  ACCESS_TOKEN = ENV['LINE_CHANNEL_TOKEN']
-
   def callback
     unless is_validate_signature
       render :nothing => true, status: 470

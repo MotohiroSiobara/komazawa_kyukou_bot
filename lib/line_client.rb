@@ -32,7 +32,7 @@ class LineClient
       }
       response = @client.reply_message(reply_token, message)
     else
-      logger.info("登録済み")
+      p "登録済み"
     end
   end
 end
