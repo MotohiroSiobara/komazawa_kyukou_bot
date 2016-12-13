@@ -17,7 +17,7 @@ class WebhookController < ApplicationController
     text_message = params["events"][0]["message"]["text"]
     user_id = params["events"][0]["source"]["userId"]
     reply_token = params["events"][0]["replyToken"]
-    User.find_by_create(user_id: user_id)
+    User.create(user_id: user_id) unless User.exists?(user_id: user_id)
     # message = {
     #   type: 'text',
     #   text: text_message

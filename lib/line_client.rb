@@ -18,7 +18,8 @@ class LineClient
       type: 'text',
       text: text
     }
-    response = @client.push_message(MY_LINE_ID, message)
-    p response
+    User.all.each do |user|
+      response = @client.push_message(user.user_id, message)
+    end
   end
 end
