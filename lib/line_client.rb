@@ -42,9 +42,11 @@ class LineClient
     case response
     when Net::HTTPSuccess then
       contact = JSON.parse(response.body)
+      p contact
       display_name = contact['displayName']
       picture = contact['pictureUrl']
       status = contact['statusMessage']
+      p display_name
       User.create(user_id: user_id, display_name: display_name, picture_url: picture, status_message: status)
     else
       p "#{response.code} #{response.body}"
