@@ -3,6 +3,8 @@ require 'line/bot'
 class WebhookController < ApplicationController
    protect_from_forgery with: :null_session # CSRF対策無効化
 
+  CHANNEL_SECRET = ENV['LINE_CHANNEL_SECRET']
+
   def callback
     unless is_validate_signature
       render :nothing => true, status: 470
@@ -13,6 +15,9 @@ class WebhookController < ApplicationController
     user_id = params["events"][0]["source"]["userId"]
     reply_token = params["events"][0]["replyToken"]
     LineClient.new.register_friend(user_id, reply_token)
+    # logger.info(user_id)
+    # logger.info(reply_token)
+    # logger.info(response)
   end
 
   private
