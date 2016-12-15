@@ -17,6 +17,6 @@ class NoLectures
   def scraper(html, charset)
     doc = Nokogiri::HTML.parse(html, nil, charset)
     text = doc.css("table").text.to_s
-    LineClient.new.push_message(text)
+    LineClient.new.push_message(text) if text.include?(Time.now.strftime("%Y/%m/%d")) # テキストの中に今日の年月日が含まれているなら送信
   end
 end
