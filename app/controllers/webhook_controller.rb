@@ -15,7 +15,7 @@ class WebhookController < ApplicationController
     reply_token = params["events"][0]["replyToken"]
     if event_type == "follow"
       LineClient.new.register_friend(user_id, reply_token)
-    else event_type == "unfollow"
+    elsif event_type == "unfollow"
       User.find_by(user_id: user_id).destroy
     end
   end
