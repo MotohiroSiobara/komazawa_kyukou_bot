@@ -8,29 +8,26 @@ class LineClient
 
   def initialize
     @client = Line::Bot::Client.new { |config|
-        config.channel_secret = CHANNEL_SECRET
-        config.channel_token = ACCESS_TOKEN
+      config.channel_secret = CHANNEL_SECRET
+      config.channel_token = ACCESS_TOKEN
     }
   end
 
   def push_message(text)
-    message = {
-      type: 'text',
-      text: text
-    }
     User.all.each do |user|
-      response = @client.push_message(user.user_id, message)
+      response = @client.push_message(user.user_id, message(text))
     end
+  end
+
+  def test_push
+    text = "これはテストです"
+    response = @client.push_message(MY_LINE_ID, message(text))
   end
 
   def register_friend(user_id, reply_token)
     unless User.exists?(user_id: user_id)
       get_profile(user_id)
-      message = {
-        type: 'text',
-        text: "登録が完了しました。毎朝9時に休講情報を配信します。"
-      }
-      response = @client.reply_message(reply_token, message)
+      response = @client.reply_message(reply_token, message("登録が完了しました。毎朝9時に休講情報を配信します。"))
     else
       p "登録済み"
     end
@@ -46,7 +43,14 @@ class LineClient
       status = contact['statusMessage']
       User.create(user_id: user_id, display_name: display_name, picture_url: picture, status_message: status)
     else
-      p "#{response.code} #{response.body}"
+      response = @client.reply_message(reply_token, message("登録に失敗しました。一度ブロックしてから再度友達追加をお願いします"))
     end
+  end
+
+  def message(text)
+    message = {
+      type: 'text',
+      text: text,
+    }
   end
 end
