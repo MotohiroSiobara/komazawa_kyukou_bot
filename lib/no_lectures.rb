@@ -17,6 +17,7 @@ class NoLectures
   def scraper(html, charset)
     doc = Nokogiri::HTML.parse(html, nil, charset)
     text = doc.css("table").text.to_s
-    LineClient.new.push_message(text) if text.include?(Time.now.strftime("%Y/%m/%d")) + 9.hours
+    today = (Time.now + 9.hours).strftime("%Y/%m/%d")
+    LineClient.new.push_message(text) if text.include?(today)
   end
 end
