@@ -22,7 +22,7 @@ class LineClient
 
   def kiyari_push # キャリーに送信
     kiyari = User.find_by(user_id: "U04a42b4160452093315b013ae6d67f07")
-    text = "あと#{kiyari.display_name}さん水曜日にファイナンス理論のプリント持ってきてくれると助かります。"
+    text = "あと#{kiyari.display_name}さんファイナンス理論のプリント持ってきてくれると助かります。"
     @client.push_message(kiyari.user_id, message(text))
   end
 
