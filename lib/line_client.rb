@@ -17,13 +17,6 @@ class LineClient
     User.all.each do |user|
       response = @client.push_message(user.user_id, message(text))
     end
-    kiyari_push
-  end
-
-  def kiyari_push # キャリーに送信
-    kiyari = User.find_by(user_id: "U04a42b4160452093315b013ae6d67f07")
-    text = "あと#{kiyari.display_name}さんファイナンス理論のプリント持ってきてくれると助かります。"
-    @client.push_message(kiyari.user_id, message(text))
   end
 
   def test_push # テスト用のメッセージ送信
