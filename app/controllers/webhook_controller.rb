@@ -21,9 +21,7 @@ class WebhookController < ApplicationController
   end
 
   private
-  # LINEからのアクセスか確認
-  # 認証に成功すればtrueを返す。
-  # ref) https://developers.line.me/bot-api/getting-started-with-bot-api-trial#signature_validation
+
   def is_validate_signature
     signature = request.headers["X-LINE-ChannelSignature"]
     http_request_body = request.raw_post

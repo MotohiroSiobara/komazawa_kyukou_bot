@@ -8,8 +8,8 @@ class NoLectures
     url = 'https://www.komazawa-u.ac.jp/~kyoumu/lesson/kyukou/WTKYUD.html'
     charset = nil
     html = open(url) do |f|
-      charset = f.charset # 文字種別を取得
-      f.read # htmlを読み込んで変数htmlに渡す
+      charset = f.charset
+      f.read
     end
     scraper(html, charset)
   end

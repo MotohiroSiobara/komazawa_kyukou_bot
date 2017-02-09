@@ -13,18 +13,18 @@ class LineClient
     }
   end
 
-  def push_message(text) # メッセージ送信
+  def push_message(text)
     User.all.each do |user|
       response = @client.push_message(user.user_id, message(text))
     end
   end
 
-  def test_push # テスト用のメッセージ送信
+  def test_push
     text = "これはテストです"
     response = @client.push_message(MY_LINE_ID, message(text))
   end
 
-  def register_friend(user_id, reply_token) # 友達登録
+  def register_friend(user_id, reply_token)
     unless User.exists?(user_id: user_id)
       get_profile(user_id)
       response = @client.reply_message(reply_token, message("登録が完了しました。毎朝9時に休講情報を配信します。"))
@@ -33,7 +33,7 @@ class LineClient
     end
   end
 
-  def get_profile(user_id) # userの情報を取得
+  def get_profile(user_id)
     response = @client.get_profile(user_id)
     case response
     when Net::HTTPSuccess then
